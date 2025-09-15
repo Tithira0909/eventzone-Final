@@ -53,7 +53,32 @@ const Pill = ({ children, className }) => (
 const Navbar = () => (
   <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur bg-gray-950/80 border-b border-amber-300/20">
     <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-      <a href="#" className="text-teal-300 font-semibold">Eventz One</a>
+      <a href="#hero" aria-label="Eventz One" className="flex items-center">
+        <svg
+          className="h-6 md:h-8"
+          viewBox="0 0 120 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <text
+            x="0"
+            y="17"
+            fontFamily="system-ui, sans-serif"
+            fontWeight="600"
+            fontSize="16"
+            fill="#ccfbf1"
+          >
+            Eventz One
+          </text>
+          <line
+            x1="0"
+            y1="20"
+            x2="100"
+            y2="20"
+            stroke="#fcd34d"
+            strokeWidth="2"
+          />
+        </svg>
+      </a>
       <div className="hidden md:flex gap-6 text-sm">
         <a href="#tickets" className="hover:text-teal-300">Tickets</a>
         <a href="#lineup" className="hover:text-teal-300">Line-up</a>
