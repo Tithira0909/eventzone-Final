@@ -136,6 +136,7 @@ const Hero = () => {
 }
 
 const Tickets = () => {
+  const checkoutUrl = import.meta.env.VITE_CHECKOUT_URL
   const tiers = [
     {
       name: 'General',
@@ -162,13 +163,25 @@ const Tickets = () => {
           >
             <h3 className="text-2xl font-semibold mb-4 text-teal-300">{tier.name}</h3>
             <p className="text-4xl font-bold mb-6">{tier.price}</p>
-            <a
-              href={tier.href}
-              {...(tier.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              className="mt-auto inline-flex items-center justify-center gap-2 rounded-full bg-teal-600 hover:bg-teal-500 text-white px-6 py-3 font-semibold shadow"
-            >
-              {tier.cta}
-            </a>
+            <div className="mt-auto flex flex-col gap-3">
+              <a
+                href={tier.href}
+                {...(tier.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-teal-600 hover:bg-teal-500 text-white px-6 py-3 font-semibold shadow"
+              >
+                {tier.cta}
+              </a>
+              {tier.name === 'VIP' && checkoutUrl && (
+                <a
+                  href={checkoutUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-teal-600 text-teal-300 hover:bg-teal-600/10 px-6 py-3 font-semibold shadow"
+                >
+                  Pay Online
+                </a>
+              )}
+            </div>
           </motion.div>
         ))}
       </div>

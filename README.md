@@ -9,6 +9,9 @@ Place the poster image at `public/poster.jpg`.
 - Gold accent uses `amber-300`. Adjust by swapping with `amber-200` or `amber-400` in components.
 - Primary teal shades come from Tailwind's default `teal` palette; change classes like `teal-600` to another shade as needed.
 
+## Environment
+Create a `.env` file in the project root and add `VITE_CHECKOUT_URL=<your checkout link>` to enable the **Pay Online** button on the VIP ticket.
+
 ## Development
 ```bash
 npm install
