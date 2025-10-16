@@ -10,6 +10,8 @@ export default {
         accent: colors.amber,
       },
     },
+    extend:{ fontFamily:{ sans:["Poppins","ui-sans-serif","system-ui"], display:["Bebas Neue","cursive"] } } ,
   },
   plugins: [],
 }
+

@@ -1,56 +1,83 @@
-// src/pages/Home.jsx
 import { Link } from "react-router-dom";
-import { Calendar, MapPin, Ticket } from "lucide-react";
+import { Ticket, Calendar, Clock, MapPin, ChevronRight } from "lucide-react";
+import { POSTER_SRC } from "../config";
+import Footer from "../components/Footer";
 
-const POSTER_SRC = "/poster.png"; // replace with your poster
-
-function EventCard({ event }) {
+/* Mobile compact row */
+function EventRowMobile({ event }) {
   return (
-    <article className="w-full max-w-[340px] sm:max-w-[360px] rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition">
-      <Link to={event.href} className="block">
-        <div className="aspect-[1/1] overflow-hidden rounded-t-2xl">
-          <img
-            src={event.poster || POSTER_SRC}
-            alt={event.title}
-            className="h-full w-full object-cover"
-            loading="lazy"
-          />
-        </div>
-      </Link>
+    <Link
+      to={event.href}
+      className="block rounded-2xl border border-white/10 bg-gray-900/90 p-4 shadow-md sm:hidden"
+    >
+      <div className="flex items-center gap-4">
+        <img
+          src={POSTER_SRC}
+          alt=""
+          className="h-16 w-16 flex-shrink-0 rounded-xl object-cover ring-1 ring-black/10"
+        />
 
-      <div className="p-4">
-        <h3 className="text-xl font-semibold leading-snug line-clamp-2">
-          {event.title}
-        </h3>
+        <div className="min-w-0 flex-1">
+          <h3 className="truncate text-base font-semibold text-teal-50">{event.title}</h3>
 
-        <div className="mt-3 space-y-2 text-sm text-slate-600">
-          <div className="flex items-center gap-2">
-            <Calendar className="h-4 w-4 text-slate-500" />
-            <span>{event.dateText}</span>
-            <span className="mx-1">•</span>
-            <span>{event.timeText}</span>
+          <div className="mt-1 space-y-1 text-xs text-teal-200/80">
+            <div className="flex items-center gap-1">
+              <Calendar className="h-4 w-4 text-amber-300" />
+              <span className="truncate">{event.dateText}</span>
+              <span className="mx-1">•</span>
+              <Clock className="h-4 w-4 text-amber-300" />
+              <span>{event.timeText} IST</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <MapPin className="h-4 w-4 text-amber-300" />
+              <span className="truncate">{event.venue}</span>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <MapPin className="h-4 w-4 text-slate-500" />
-            <span className="line-clamp-1">{event.venue}</span>
-          </div>
         </div>
 
-        <div className="mt-4 flex items-baseline gap-2">
-          <span className="text-2xl font-extrabold text-blue-600">
-            {event.price}
-          </span>
-          <span className="text-slate-500">upwards</span>
-        </div>
+        <ChevronRight className="h-5 w-5 flex-shrink-0 text-teal-200/70" />
+      </div>
+    </Link>
+  );
+}
+
+/* Desktop card */
+function EventCardDesktop({ event }) {
+  return (
+    <article className="hidden w-full max-w-md overflow-hidden rounded-2xl border border-teal-700/40 bg-gray-900/70 shadow-lg sm:block">
+      <div className="aspect-[4/5] w-full">
+        <img src={POSTER_SRC} alt={event.title} className="h-full w-full object-cover" />
       </div>
 
-      <div className="border-t border-slate-200 p-3">
-        <Link
-          to={event.href}
-          className="block w-full rounded-xl bg-blue-600 py-3 text-center font-semibold text-white hover:bg-blue-500"
-        >
-          Buy Tickets
-        </Link>
+      <div className="p-6">
+        <h2 className="font-display text-2xl tracking-wide text-amber-400">{event.title}</h2>
+
+        <div className="mt-4 space-y-2 text-teal-100">
+          <div className="flex items-center gap-2">
+            <Calendar className="h-5 w-5 text-amber-400" />
+            <span className="font-semibold">{event.dateText}</span>
+            <span className="mx-1">•</span>
+            <Clock className="h-5 w-5 text-amber-400" />
+            <span>{event.timeText} IST</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <MapPin className="h-5 w-5 text-amber-400" />
+            <span className="font-medium">{event.venue}</span>
+          </div>
+        </div>
+
+        <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="text-xl font-bold">
+            <span className="text-amber-400">{event.price}</span>{" "}
+            <span className="font-medium text-teal-200/80">upwards</span>
+          </div>
+          <Link
+            to={event.href}
+            className="rounded-xl bg-gradient-to-r from-teal-500 to-teal-700 px-6 py-3 text-center font-semibold text-white shadow-lg hover:from-teal-400 hover:to-teal-600"
+          >
+            Buy Tickets
+          </Link>
+        </div>
       </div>
     </article>
   );
@@ -58,54 +85,43 @@ function EventCard({ event }) {
 
 export default function Home() {
   const event = {
-    title: "Yugathraa යුගාත්‍රා",
-    dateText: "Sep 27, 2025",
-    timeText: "07.00 PM IST",
-    venue: "Nelum Pokuna Indoor Theatre",
-    price: "2,000 LKR",
-    href: "/events/sanda-ek-dinak#tickets", // change to your route
-    poster: POSTER_SRC,
+    title: "සඳ එක් දිනක් — Sanda Ek Dinak",
+    dateText: "Nov 30, 2025",
+    timeText: "07:00 PM",
+    venue: "Wave N' Lake Navy Hall, Welisara",
+    price: "5,000 LKR",
+    href: "/events/sanda-ek-dinak#tickets",
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      {/* Sticky top bar */}
-      <header className="sticky top-0 z-40 bg-white/85 backdrop-blur border-b border-slate-200">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+    <div className="flex min-h-svh flex-col overflow-x-hidden bg-gray-950 text-teal-100">
+      <header className="sticky top-0 z-40 border-b border-teal-700/40 bg-gray-900/90 backdrop-blur">
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16">
           <Link to="/" className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-teal-400 to-amber-300" />
-            <span className="font-semibold">Eventz One</span>
+            <img src="/logo.jpg" alt="Eventz One" className="h-7 w-7 rounded-full" />
+            <span className="text-base font-semibold text-teal-50 sm:text-lg">Eventz One</span>
           </Link>
-
-          {/* Hide the top CTA on very small screens; show a bottom CTA instead */}
           <Link
             to={event.href}
-            className="hidden sm:inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-500"
+            className="inline-flex items-center gap-2 rounded-xl bg-amber-300 px-3 py-2 text-xs font-medium text-gray-900 hover:bg-amber-200 sm:text-sm"
           >
-            <Ticket className="h-4 w-4" />
-            Buy Tickets
+            <Ticket className="h-4 w-4" /> Buy
           </Link>
         </div>
       </header>
 
-      {/* Centered single card */}
-      <main className="px-4 py-8 sm:py-12">
-        <div className="mx-auto flex max-w-6xl items-start justify-center">
-          <EventCard event={event} />
+      <main className="mx-auto w-full max-w-6xl flex-1 px-3 py-6 sm:px-4 sm:py-12">
+        <h1 className="mb-6 font-display text-2xl tracking-wide text-amber-300 sm:text-3xl">
+          Featured Event
+        </h1>
+
+        <EventRowMobile event={event} />
+        <div className="mt-6 flex justify-center">
+          <EventCardDesktop event={event} />
         </div>
       </main>
 
-      {/* Mobile bottom CTA */}
-      <div className="sm:hidden fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 backdrop-blur p-3">
-        <div className="mx-auto max-w-6xl">
-          <Link
-            to={event.href}
-            className="block w-full rounded-xl bg-blue-600 py-3 text-center font-semibold text-white hover:bg-blue-500"
-          >
-            Buy Tickets
-          </Link>
-        </div>
-      </div>
+      <Footer />
     </div>
   );
 }
