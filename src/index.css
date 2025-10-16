@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-gray-950 text-gray-100 antialiased;
+/* your custom animations from earlier */
+@keyframes blob {
+  0% { transform: translate(0,0) scale(1); }
+  33% { transform: translate(60px,-20px) scale(1.08); }
+  66% { transform: translate(-40px,25px) scale(0.94); }
+  100% { transform: translate(0,0) scale(1); }
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes shine {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
